@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { Grid } from "gridjs-react";
+import TimeStamp from "../component/timestamp";
+
 
 
 const Fetch = () => {
@@ -33,12 +35,17 @@ const Fetch = () => {
 
     return (
         <div>
+            <h1> WBTC mint and burn lastest transactions query (hash, amount, time stamp)</h1>
             <div className='mint'>
-                <ul>
-                    {
-                        mint.map((value, index) => (<li key={index}>{value.transactionHash} {value._from} {value.blockNumber}</li>))
-                    }
-                </ul>
+                <h2> Last 20 mint transactions data</h2>
+                {mint.slice(0).reverse().map((item, i) => {
+                    return <ul className="mt-2" key={i}>
+                        <li>Transaction Hash: {item.transactionHash}</li>
+                        <li>To Address: {item.args[0]}</li>
+                        <li>Amount: {ethers.utils.formatEther(item.args.amount)}</li>
+                        <li>TimeStamp: <TimeStamp blockNumber={item.blockNumber} /></li>
+                    </ul>
+                })}
             </div>
             {/* <div className='test'>
                 <Grid
@@ -55,11 +62,15 @@ const Fetch = () => {
                 />
             </div> */}
             <div className='burn'>
-                <ul>
-                    {
-                        burn.map((value, index) => (<li key={index}>{value.transactionHash}</li>))
-                    }
-                </ul>
+                <h2> Last 20 burn transactions data</h2>
+                {burn.slice(0).reverse().map((item, i) => {
+                    return <ul className="mt-2" key={i}>
+                        <li>Transaction Hash: {item.transactionHash}</li>
+                        <li>Burner Address: {item.args.burner}</li>
+                        <li>Amount: {ethers.utils.formatEther(item.args.value)}</li>
+                        <li>TimeStamp: <TimeStamp blockNumber={item.blockNumber} /></li>
+                    </ul>
+                })}
             </div>
 
         </div>
