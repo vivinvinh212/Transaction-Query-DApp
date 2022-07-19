@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import { Grid } from "gridjs-react";
 import TimeStamp from "../component/timestamp";
 
 
@@ -30,7 +29,7 @@ const Fetch = () => {
         }
         fetchBurn();
         fetchMint();
-
+        // eslint-disable-next-line
     }, []);
 
     return (

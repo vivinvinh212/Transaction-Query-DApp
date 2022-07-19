@@ -11,6 +11,7 @@ export default function TimeStamp({ blockNumber }) {
 
     useEffect(() => {
         getTime(blockNumber)
+        // eslint-disable-next-line
     }, [timeStamp])
 
 
